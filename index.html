@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chrome Notification Test</title>
+</head>
+<body>
+    <button onclick="showNotification()">Show System Notification</button>
+
+    <script>
+    function showNotification() {
+        // Check if browser supports notifications
+        if (!("Notification" in window)) {
+            alert("This browser doesn't support notifications!");
+            return;
+        }
+
+        // Check permission
+        if (Notification.permission === "granted") {
+            // Create notification
+            new Notification({
+                body: "You clicked the button!",
+                icon: "https://via.placeholder.com/128" // Optional icon
+            });
+        } 
+        else if (Notification.permission !== "denied") {
+            // Ask for permission first
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    new Notification({
+                        body: "You'll now see notifications",
+                        icon: "https://via.placeholder.com/128"
+                    });
+                }
+            });
+        }
+    }
+    </script>
+</body>
+      </html>
